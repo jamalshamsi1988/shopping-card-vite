@@ -6,17 +6,25 @@ import Card from "../components/Card";
 import Loader from "../components/Loader";
 import { useProducts } from "../context/ProductContext"
 import styles from './ProductsPage.module.css'
+import { filterProducts, searchProducts } from '../helper/helper';
 
 const ProductsPage = () => {
   const products=useProducts();
   const [displayed,setDisplayed]=useState([]);
   const [search,setSearch]=useState("");
+  const [query,setQuery]=useState({});
 
   useEffect(()=>{
     setDisplayed(products)
   },[products])
-  const searchHandler=()=>{
 
+  useEffect(()=>{
+    let finalProducts= searchProducts(products , query.search);
+    finalProducts=filterProducts(finalProducts , query.category)
+    setDisplayed(finalProducts);
+  },[query])
+  const searchHandler=()=>{
+    setQuery(query => ({...query , search}))
   }
 
 const categoryHandler=(e)=>{
@@ -24,6 +32,7 @@ const categoryHandler=(e)=>{
 const category = e.target.innerText.toLowerCase();
 
   if(tagName !== "LI") return;
+  setQuery(query => ({...query , category}))
 }
   return (
     <>
