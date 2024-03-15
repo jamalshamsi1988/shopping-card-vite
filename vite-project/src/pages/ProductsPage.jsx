@@ -1,81 +1,57 @@
-import { useEffect, useState } from 'react';
-import {  useSearchParams } from 'react-router-dom';
-import {ImSearch} from 'react-icons/im'
-import {FaListUl} from 'react-icons/fa'
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Card from "../components/Card";
 import Loader from "../components/Loader";
-import { useProducts } from "../context/ProductContext"
-import styles from './ProductsPage.module.css'
-import { filterProducts, searchProducts ,createQueryObject, getInitialQuery} from '../helper/helper';
+import { useProducts } from "../context/ProductContext";
+import styles from "./ProductsPage.module.css";
+import {
+  filterProducts,
+  searchProducts,
+  getInitialQuery,
+} from "../helper/helper";
+import SearchBox from "../components/SearchBox";
+import SideBard from "../components/SideBard";
 
 const ProductsPage = () => {
-  const products=useProducts();
-  const [displayed,setDisplayed]=useState([]);
-  const [search,setSearch]=useState("");
-  const [query,setQuery]=useState({});
+  const products = useProducts();
+  const [displayed, setDisplayed] = useState([]);
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState({});
 
-  const[searchParams,setSearchParams]=useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(()=>{
-    setDisplayed(products)
-    
-    setQuery(getInitialQuery(searchParams))
+  useEffect(() => {
+    setDisplayed(products);
 
+    setQuery(getInitialQuery(searchParams));
+  }, [products]);
 
-  },[products])
-
-  useEffect(()=>{
+  useEffect(() => {
     setSearchParams(query);
     setSearch(query.search || "");
-    
-    let finalProducts= searchProducts(products , query.search);
-    finalProducts=filterProducts(finalProducts , query.category)
+
+    let finalProducts = searchProducts(products, query.search);
+    finalProducts = filterProducts(finalProducts, query.category);
     setDisplayed(finalProducts);
-  },[query])
-  const searchHandler=()=>{
-    setQuery(query => createQueryObject(query,{search}));
-  }
+  }, [query]);
 
-const categoryHandler=(e)=>{
-  const {tagName}=e.target;
-const category = e.target.innerText.toLowerCase();
-
-  if(tagName !== "LI") return;
-  setQuery(query => createQueryObject(query,{category}))
-}
   return (
     <>
-    <div>
-      <input type='text' placeholder='Search ...' value={search} onChange={e => setSearch(e.target.value.toLowerCase().trim())} />
-   <button onClick={searchHandler}><ImSearch /></button>
-    </div>
-    <div className={styles.container}>
-      {
-        !displayed.length && <Loader />
-      }
-      <div className={styles.products}>
-        {
-          displayed.map(p => <Card key={p.id} data={p} />)
-        }
-      </div>
-      <div>
-        <div><FaListUl />
-        <p>Categories</p>
+      <SearchBox search={search} setSearch={setSearch} setQuery={setQuery} />
+
+      <div className={styles.container}>
+        {!displayed.length && <Loader />}
+        <div className={styles.products}>
+          {displayed.map((p) => (
+            <Card key={p.id} data={p} />
+          ))}
         </div>
-        <ul onClick={categoryHandler}>
-          <li>All</li>
-          <li>Electronics</li>
-          <li>Jewelery</li>
-          <li>Men's Clothing</li>
-          <li>Women's Clothing</li>
 
-        </ul>
+        <SideBard setQuery={setQuery} />
       </div>
-
-    </div>
     </>
-  )
-}
+  );
+};
 
-export default ProductsPage
+export default ProductsPage;
