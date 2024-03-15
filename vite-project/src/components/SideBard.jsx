@@ -1,31 +1,38 @@
-import {FaListUl} from 'react-icons/fa'
+import { FaListUl } from "react-icons/fa";
 
-import { createQueryObject } from '../helper/helper';
+import { createQueryObject } from "../helper/helper";
+import styles from "./SideBard.module.css";
+import { categories } from "../constants/categoriesList";
 
-const SideBard = ({setQuery}) => {
 
-    const categoryHandler=(e)=>{
-        const {tagName}=e.target;
-      const category = e.target.innerText.toLowerCase();
-      
-        if(tagName !== "LI") return;
-        setQuery(query => createQueryObject(query,{category}))
-      }
+const SideBard = ({ query,setQuery }) => {
+  const categoryHandler = (e) => {
+    const { tagName } = e.target;
+    const category = e.target.innerText.toLowerCase();
+
+    if (tagName !== "LI") return;
+    setQuery((query) => createQueryObject(query, { category }));
+  };
   return (
-    <div>
-    <div><FaListUl />
-    <p>Categories</p>
+    <div className={styles.sidebar}>
+      <div>
+        <FaListUl />
+        <p>Categories</p>
+      </div>
+      <ul onClick={categoryHandler}>
+        {categories.map((i) => (
+          <li
+            key={i.id}
+            className={
+              i.type.toLowerCase() === query.category ? styles.selected : null
+            }
+          >
+            {i.type}
+          </li>
+        ))}
+      </ul>
     </div>
-    <ul onClick={categoryHandler}>
-      <li>All</li>
-      <li>Electronics</li>
-      <li>Jewelery</li>
-      <li>Men's Clothing</li>
-      <li>Women's Clothing</li>
+  );
+};
 
-    </ul>
-  </div>
-  )
-}
-
-export default SideBard
+export default SideBard;

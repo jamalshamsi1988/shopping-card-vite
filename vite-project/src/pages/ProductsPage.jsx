@@ -48,7 +48,7 @@ const ProductsPage = () => {
           ))}
         </div>
 
-        <SideBard setQuery={setQuery} />
+        <SideBard query={query} setQuery={setQuery} />
       </div>
     </>
   );
