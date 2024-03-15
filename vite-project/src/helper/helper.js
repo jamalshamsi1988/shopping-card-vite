@@ -11,10 +11,23 @@ const searchProducts = (products, search) => {
   return searchedProducts;
 };
 
-const filterProducts=(products,category)=>{
-    if(!category) return products;
+const filterProducts = (products, category) => {
+  if (!category) return products;
 
-    const filteredProducts= products.filter((p)=> p.category=== category);
-     return filteredProducts;
-}
-export { shorten , searchProducts,filterProducts};
+  const filteredProducts = products.filter((p) => p.category === category);
+  return filteredProducts;
+};
+
+const createQueryObject = (currentQuery, newQuery) => {
+  if (newQuery.category === "all") {
+    const { category, ...rest } = currentQuery;
+    return rest;
+  }
+  if (newQuery.search === "") {
+    const { search, ...rest } = currentQuery;
+    return rest;
+  }
+  return { ...currentQuery, ...newQuery };
+};
+
+export { shorten, searchProducts, filterProducts, createQueryObject };
