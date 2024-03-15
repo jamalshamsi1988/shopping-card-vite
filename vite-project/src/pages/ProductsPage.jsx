@@ -7,7 +7,7 @@ import Card from "../components/Card";
 import Loader from "../components/Loader";
 import { useProducts } from "../context/ProductContext"
 import styles from './ProductsPage.module.css'
-import { filterProducts, searchProducts ,createQueryObject} from '../helper/helper';
+import { filterProducts, searchProducts ,createQueryObject, getInitialQuery} from '../helper/helper';
 
 const ProductsPage = () => {
   const products=useProducts();
@@ -19,10 +19,16 @@ const ProductsPage = () => {
 
   useEffect(()=>{
     setDisplayed(products)
+    
+    setQuery(getInitialQuery(searchParams))
+
+
   },[products])
 
   useEffect(()=>{
     setSearchParams(query);
+    setSearch(query.search || "");
+    
     let finalProducts= searchProducts(products , query.search);
     finalProducts=filterProducts(finalProducts , query.category)
     setDisplayed(finalProducts);
