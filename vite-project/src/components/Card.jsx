@@ -12,7 +12,7 @@ const Card = ({ data }) => {
   const [state,dispatch]=useCard();
 
   const addHandler=()=>{
-    dispatch({type:"add" ,payload:data})
+    dispatch({type:"ADD_ITEM" ,payload:data})
 
   }
   return (
