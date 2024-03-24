@@ -18,7 +18,9 @@ const Layout = ({ children }) => {
       </header>
       {children}
       <footer className={styles.footer}>
+        <Link to="https://github.com/jamalshamsi1988/shopping-card-vite/tree/main/vite-project" target="blank">
         <p>Developed By Jamal Shamsi</p>
+        </Link>
       </footer>
     </>
   );
