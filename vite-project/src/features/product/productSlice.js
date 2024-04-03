@@ -17,18 +17,18 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
       state.loading = true;
-    }),
-      builder.addCase(fetchProducts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
-        error = "";
-      }),
-      builder.addCase(fetchProducts.rejected, (state, action) => {
-        state.loading = false;
-        state.products = [];
-        error = action.error.message;
-      });
+    });
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      state.loading = false;
+      state.products = action.payload;
+      state.error = "";
+    });
+    builder.addCase(fetchProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.products = [];
+      state.error = action.error.message;
+    });
   },
 });
 export default productsSlice.reducer;
-export {fetchProducts};
+export { fetchProducts };
