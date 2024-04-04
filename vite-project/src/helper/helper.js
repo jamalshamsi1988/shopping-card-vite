@@ -30,29 +30,52 @@ const createQueryObject = (currentQuery, newQuery) => {
   return { ...currentQuery, ...newQuery };
 };
 
-const getInitialQuery=searchParams=>{
-  const query={};
-    const category=searchParams.get("category");
-    const search=searchParams.get("search");
-    if (category) query.category=category;
-    if (search) query.search=search;
-    return query;
-}
+const getInitialQuery = (searchParams) => {
+  const query = {};
+  const category = searchParams.get("category");
+  const search = searchParams.get("search");
+  if (category) query.category = category;
+  if (search) query.search = search;
+  return query;
+};
 
-const sumProducts=(products)=>{
-  const itemsCounter = products.reduce((counter , product)=> counter + product.quantity , 0);
-  const total=products.reduce((total,product)=> total + product.price * product.quantity,0).toFixed();
-  return{itemsCounter, total}
-}
+const sumProducts = (products) => {
+  const itemsCounter = products.reduce(
+    (counter, product) => counter + product.quantity,
+    0
+  );
+  const total = products
+    .reduce((total, product) => total + product.price * product.quantity, 0)
+    .toFixed();
+  return { itemsCounter, total };
+};
+/// function for reduxToolkit
+const sumPrice = (products) => {
+  return products.reduce((total, product) => total + product.price * product.quantity, 0)
+    .toFixed();
+};
+const sumQuantity = (products) => {
+  return products.reduce((counter, product) => counter + product.quantity, 0);
+};
 
-const productQuantity=(state,id)=>{
-  const index = state.selectedItems.findIndex(item => item.id === id);
+const productQuantity = (state, id) => {
+  const index = state.selectedItems.findIndex((item) => item.id === id);
 
-  if(index === -1){
-    return 0
-  }else{
+  if (index === -1) {
+    return 0;
+  } else {
     return state.selectedItems[index].quantity;
   }
-}
+};
 
-export { shorten, searchProducts, filterProducts, createQueryObject,getInitialQuery,sumProducts,productQuantity };
+export {
+  shorten,
+  searchProducts,
+  filterProducts,
+  createQueryObject,
+  getInitialQuery,
+  sumProducts,
+  productQuantity,
+  sumPrice,
+  sumQuantity
+};
