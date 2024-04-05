@@ -1,10 +1,13 @@
+import { useDispatch } from "react-redux";
 import { GoChecklist } from "react-icons/go";
-import {FaHashtag} from "react-icons/fa"
-import {BsPatchCheck} from "react-icons/bs"
+import { FaHashtag } from "react-icons/fa";
+import { BsPatchCheck } from "react-icons/bs";
 
-import styles from "./BasketSidebard.module.css"
+import styles from "./BasketSidebard.module.css";
+import { checkOut } from "../features/cart/cartSlice";
 
-const BasketSidebar = ({state,clickHandler}) => {
+const BasketSidebar = ({ state }) => {
+  const dispatch = useDispatch();
   return (
     <div className={styles.siderbar}>
       <div>
@@ -15,16 +18,17 @@ const BasketSidebar = ({state,clickHandler}) => {
       <div>
         <FaHashtag />
         <p>Quantity:</p>
-        <span>{state.itemsCounter}</span>
+        <span>{state.itemCounter}</span>
       </div>
       <div>
         <BsPatchCheck />
         <p>Status:</p>
         <span>{!state.status && "Pending..."}</span>
       </div>
-      <button onClick={()=> clickHandler("CHECKOUT")}>Checkout</button>
+      {/* <button onClick={()=> clickHandler("CHECKOUT")}> */}
+      <button onClick={() => dispatch(checkOut(data))}>Checkout</button>
     </div>
-  )
-}
+  );
+};
 
-export default BasketSidebar
+export default BasketSidebar;

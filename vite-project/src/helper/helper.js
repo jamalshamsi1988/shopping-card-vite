@@ -40,24 +40,24 @@ const getInitialQuery = (searchParams) => {
 };
 
 const sumProducts = (products) => {
-  const itemsCounter = products.reduce(
+  const itemCounter = products.reduce(
     (counter, product) => counter + product.quantity,
     0
   );
   const total = products
     .reduce((total, product) => total + product.price * product.quantity, 0)
-    .toFixed();
-  return { itemsCounter, total };
+    .toFixed(2);
+  return { itemCounter, total };
 };
 /// function for reduxToolkit
 const sumPrice = (products) => {
   return products.reduce((total, product) => total + product.price * product.quantity, 0)
-    .toFixed();
+    .toFixed(2);
 };
 const sumQuantity = (products) => {
   return products.reduce((counter, product) => counter + product.quantity, 0);
 };
-
+///
 const productQuantity = (state, id) => {
   const index = state.selectedItems.findIndex((item) => item.id === id);
 

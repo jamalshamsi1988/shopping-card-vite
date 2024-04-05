@@ -44,14 +44,14 @@ const cartSlice = createSlice({
         state.total = sumPrice(state.selectedItems);
         state.itemCounter = sumQuantity(state.selectedItems);
       },
-      chechOut:(state)=>{
+      checkOut:(state)=>{
         state.selectedItems=[];
         state.checkOut=true;
-        state.itemCounter=0;
         state.total=0;
+        state.itemCounter=0;
     }
   },
 });
 
 export default  cartSlice.reducer;
-export const {decrease,increase,addItem,removeItem,chechOut}=cartSlice.actions;
+export const {decrease,increase,addItem,removeItem,checkOut}=cartSlice.actions;
