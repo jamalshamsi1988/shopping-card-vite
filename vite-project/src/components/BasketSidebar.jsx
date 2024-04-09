@@ -4,10 +4,8 @@ import { FaHashtag } from "react-icons/fa";
 import { BsPatchCheck } from "react-icons/bs";
 
 import styles from "./BasketSidebard.module.css";
-import { checkOut } from "../features/cart/cartSlice";
 
-const BasketSidebar = ({ state }) => {
-  const dispatch = useDispatch();
+const BasketSidebar = ({ state,clickHandler }) => {
   return (
     <div className={styles.siderbar}>
       <div>
@@ -25,8 +23,7 @@ const BasketSidebar = ({ state }) => {
         <p>Status:</p>
         <span>{!state.status && "Pending..."}</span>
       </div>
-      {/* <button onClick={()=> clickHandler("CHECKOUT")}> */}
-      <button onClick={() => dispatch(checkOut(data))}>Checkout</button>
+      <button onClick={() => clickHandler("CHECKOUT")}>Checkout</button>
     </div>
   );
 };

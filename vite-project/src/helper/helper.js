@@ -49,15 +49,7 @@ const sumProducts = (products) => {
     .toFixed(2);
   return { itemCounter, total };
 };
-/// function for reduxToolkit
-const sumPrice = (products) => {
-  return products.reduce((total, product) => total + product.price * product.quantity, 0)
-    .toFixed(2);
-};
-const sumQuantity = (products) => {
-  return products.reduce((counter, product) => counter + product.quantity, 0);
-};
-///
+
 const productQuantity = (state, id) => {
   const index = state.selectedItems.findIndex((item) => item.id === id);
 
@@ -76,6 +68,4 @@ export {
   getInitialQuery,
   sumProducts,
   productQuantity,
-  sumPrice,
-  sumQuantity
 };

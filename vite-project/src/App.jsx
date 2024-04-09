@@ -9,8 +9,8 @@ import CheckOutPage from "./pages/CheckOutPage";
 
 function App() {
   return (
-    // <CardProvider>
-    //   <ProductsProvider>
+    <CardProvider>
+      <ProductsProvider>
         <Layout>
         <Routes>
           <Route index element={<Navigate to="/products" replace />} />
@@ -21,8 +21,8 @@ function App() {
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
         </Layout>
-    //   </ProductsProvider>
-    // </CardProvider>
+      </ProductsProvider>
+     </CardProvider>
   );
 }
 

@@ -1,15 +1,13 @@
-import { useSelector } from "react-redux";
 import BasketCard from "../components/BasketCard";
 import BasketSidebar from "../components/BasketSidebar";
-// import { useCard } from "../context/CardContext";
+import { useCard } from "../context/CardContext";
 import styles from "./CheckOutPage.module.css";
 
 const CheckOutPage = () => {
-  // const [state, dispatch] = useCard();
-  const state = useSelector((store) => store.cart);
+  const [state, dispatch] = useCard();
 
 
-  // const clickHandler = (type, payload) => dispatch({ type, payload });
+  const clickHandler = (type, payload) => dispatch({ type, payload });
 
   if (!state.itemCounter) {
     return (
@@ -23,14 +21,14 @@ const CheckOutPage = () => {
     <div className={styles.container}>
       <BasketSidebar
         state={state}
-        // clickHandler={clickHandler}
+        clickHandler={clickHandler}
       />
       <div className={styles.products}>
         {state.selectedItems.map((product) => (
           <BasketCard
             key={product.id}
             data={product}
-            // clickHandler={clickHandler}
+            clickHandler={clickHandler}
           />
         ))}
       </div>
