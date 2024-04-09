@@ -37,21 +37,22 @@ const cartSlice = createSlice({
       state.itemCounter = sumQuantity(state.selectedItems);
     },
     decrease: (state, action) => {
-        const decreaseIndex = state.selectedItems.findIndex(
-          (i) => i.id === action.payload.id
-        );
-        state.selectedItems[decreaseIndex].quantity--;
-        state.total = sumPrice(state.selectedItems);
-        state.itemCounter = sumQuantity(state.selectedItems);
-      },
-      checkOut:(state)=>{
-        state.selectedItems=[];
-        state.checkOut=true;
-        state.total=0;
-        state.itemCounter=0;
-    }
+      const decreaseIndex = state.selectedItems.findIndex(
+        (i) => i.id === action.payload.id
+      );
+      state.selectedItems[decreaseIndex].quantity--;
+      state.total = sumPrice(state.selectedItems);
+      state.itemCounter = sumQuantity(state.selectedItems);
+    },
+    checkOut: (state) => {
+      state.selectedItems = [];
+      state.checkOut = true;
+      state.total = 0;
+      state.itemCounter = 0;
+    },
   },
 });
 
-export default  cartSlice.reducer;
-export const {decrease,increase,addItem,removeItem,checkOut}=cartSlice.actions;
+export default cartSlice.reducer;
+export const { decrease, increase, addItem, removeItem, checkOut } =
+  cartSlice.actions;
